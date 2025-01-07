@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geld Overschrijven</title>
+    <link rel="stylesheet" href="overschrijven.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Geld Overschrijven</h1>
+    <form id="transferForm">
+        <label for="fromAccount">Van rekening:</label>
+        <select id="fromAccount" name="fromAccount">
+            <option value="betaalrekening" data-balance="1500.00">Betaalrekening (€1500.00)</option>
+            <option value="spaarrekening" data-balance="500.00">Spaarrekening (€500.00)</option>
+        </select>
+
+        <label for="toAccount">Naar rekening:</label>
+        <select id="toAccount" name="toAccount">
+            <option value="spaarrekening">Spaarrekening</option>
+            <option value="betaalrekening">Betaalrekening</option>
+        </select>
+
+        <label for="amount">Bedrag:</label>
+        <input type="number" id="amount" name="amount" placeholder="Voer bedrag in" min="1" required>
+
+        <button type="button" id="transferButton">Overschrijven</button>
+    </form>
+
+    <div id="feedback" class="feedback"></div>
+</div>
+<script src="overschrijven.js"></script>
+</body>
+</html>
