@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptovaluta Overzicht</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        h1 {
+            color: #4caf50;
+        }
+        .crypto-price {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .crypto-price.rise {
+            background-color: #e6ffe6;
+            color: #2e7d32;
+        }
+        .crypto-price.fall {
+            background-color: #ffe6e6;
+            color: #c62828;
+        }
+        select, input {
+            margin: 10px 0;
+            padding: 10px;
+            width: 90%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .investment-status {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cryptovaluta Overzicht</h1>
+
+        <div id="bitcoin" class="crypto-price">Bitcoin: €0.00 (90000 per eenheid)</div>
+        <div id="ethereum" class="crypto-price">Ethereum: €0.00 (4800 per eenheid)</div>
+        <div id="litecoin" class="crypto-price">Litecoin: €0.00 (250 per eenheid)</div>
+
+        <select id="crypto-select">
+            <option value="bitcoin">Bitcoin</option>
+            <option value="ethereum">Ethereum</option>
+            <option value="litecoin">Litecoin</option>
+        </select>
+        <input type="number" id="amount" placeholder="Bedrag (in €)">
+
+        <button onclick="buyCrypto()">Kopen</button>
+        <button onclick="sellCrypto()">Verkopen</button>
+
+        <div id="status" class="investment-status">Je hebt nog geen investeringen gedaan.</div>
+    </div>
+
+    <script>
+        const prices = {
+            bitcoin: 90000,
+            ethereum: 4800,
+            litecoin: 250
+        };
+
+        const investments = {
+            bitcoin: 0,
+            ethereum: 0,
+            litecoin: 0
+        };
+
+        function updatePrices(crypto) {
+            const element = document.getElementById(crypto);
+            const investment = investments[crypto];
+            const value = investment * prices[crypto];
+
+            element.textContent = `${crypto.charAt(0).toUpperCase() + crypto.slice(1)}: €${value.toFixed(2)} (${prices[crypto]} per eenheid)`;
+        }
+
+        function buyCrypto() {
+            const crypto = document.getElementById('crypto-select').value;
+            const amount = parseFloat(document.getElementById('amount').value);
+
+            if (isNaN(amount) || amount <= 0) {
+                alert('Voer een geldig bedrag in!');
+                return;
+            }
+
+            investments[crypto] += amount / prices[crypto];
+            updatePrices(crypto);
+            document.getElementById('status').textContent = `Je hebt €${amount.toFixed(2)} in ${crypto} geïnvesteerd.`;
+
+            flashEffect(crypto, 'rise');
+        }
+
+        function sellCrypto() {
+            const crypto = document.getElementById('crypto-select').value;
+            const amount = parseFloat(document.getElementById('amount').value);
+
+            if (isNaN(amount) || amount <= 0) {
+                alert('Voer een geldig bedrag in!');
+                return;
+            }
+
+            const cryptoValue = investments[crypto] * prices[crypto];
+
+            if (amount > cryptoValue) {
+                alert('Je hebt niet genoeg investering om te verkopen!');
+                return;
+            }
+
+            investments[crypto] -= amount / prices[crypto];
+            updatePrices(crypto);
+            document.getElementById('status').textContent = `Je hebt €${amount.toFixed(2)} aan ${crypto} verkocht.`;
+
+            flashEffect(crypto, 'fall');
+        }
+
+        function flashEffect(crypto, effect) {
+            const element = document.getElementById(crypto);
+            element.classList.add(effect);
+            setTimeout(() => element.classList.remove(effect), 500);
+        }
+    </script>
+</body>
+</html
