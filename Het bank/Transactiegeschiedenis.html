@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactiegeschiedenis</title>
+    <link rel="stylesheet" href="Transactiegeschiedenis.css">
+</head>
+<body>
+    <!-- Navigatiebalk -->
+    <nav>
+        <div class="nav-title">Bank Dashboard <a href="Home.html"></a></div>
+        <ul>
+            <li><a href="overschrijven.html">Overschrijven</a></li>
+            <li><a href="Transactiegeschiedenis.html">Transactiegeschiedenis</a></li>
+            <li><a href="inloggen.html">Uitloggen</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Transactiegeschiedenis</h1>
+        <div class="filters">
+            <select id="typeFilter">
+                <option value="all">Alle</option>
+                <option value="inkomend">Inkomend</option>
+                <option value="uitgaand">Uitgaand</option>
+            </select>
+            <input type="date" id="dateFilter">
+            <button onclick="filterTransactions()">Filteren</button>
+        </div>
+        <div id="transactionList"></div>
+    </div>
+    <script src="Transactiegeschiedenis.js"></script>
+</body>
+</html>
